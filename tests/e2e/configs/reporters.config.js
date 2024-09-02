@@ -12,16 +12,10 @@ const { BASE_TEST_CONSTANTS } = require('../constants/BASE_TEST_CONSTANTS');
 
 module.exports = {
 	reporterEnabled: REPORTER_CONSTANTS.REPORTERS_ENABLED(),
+	seaLightsReporterReporterOptions: {},
 	allureMochaReporterOptions: {
 		resultsDir: '.allure-results'
 	},
-
-	"SeaLightsReporterReporterOptions": {},
-	"mochaAllureReporterOptions": {
-		"targetDir": ".allure-results"
-	},
-	"mochaJunitReporterReporterOptions": {},
-
 	reportportalAgentJsMochaReporterOptions: {
 		apiKey: REPORTER_CONSTANTS.RP_API_KEY,
 		endpoint: REPORTER_CONSTANTS.RP_ENDPOINT(),

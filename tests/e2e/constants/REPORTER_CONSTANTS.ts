@@ -78,18 +78,20 @@ export const REPORTER_CONSTANTS: {
 	SAVE_RP_REPORT_DATA: process.env.SAVE_RP_REPORT_DATA === 'true',
 
 	/**
-	 * list of enabler reporters
+	 * list of enabled reporters
 	 */
 	REPORTERS_ENABLED: (): string => {
-		let reporters: string = 'dist/utils/CheReporter.js';
+		let reporters: string = '';
+		
+		reporters += 'slnodejs/tsOutputs/mocha-reporter/index';
+		reporters += ',dist/utils/CheReporter.js';
+
 		if (REPORTER_CONSTANTS.SAVE_ALLURE_REPORT_DATA) {
 			reporters += ',allure-mocha';
 		}
 		if (REPORTER_CONSTANTS.SAVE_RP_REPORT_DATA) {
 			reporters += ',@reportportal/agent-js-mocha';
 		}
-
-		reporters += ',slnodejs/tsOutputs/mocha-reporter/index';
 
 		return reporters;
 	},
