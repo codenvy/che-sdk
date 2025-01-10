@@ -33,7 +33,7 @@ suite(`Login to Openshift console and start WebTerminal ${BASE_TEST_CONSTANTS.TE
 	const fileForVerificationTerminalCommands: string = 'result.txt';
 
 	suiteSetup(function (): void {
-		kubernetesCommandLineToolsExecutor.loginToOcp('admin');
+		kubernetesCommandLineToolsExecutor.loginToOcp('kubeadmin');
 	});
 
 	suiteTeardown(function (): void {
@@ -63,7 +63,7 @@ suite(`Login to Openshift console and start WebTerminal ${BASE_TEST_CONSTANTS.TE
 			`cat /home/user/${fileForVerificationTerminalCommands}`,
 			webTerminalToolContainerName
 		);
-		expect(commandResult).contains('admin');
+		expect(commandResult).contains('kube:admin');
 	});
 	test('Verify help command under admin user', async function (): Promise<void> {
 		const expectedStrings: string[] = [

@@ -228,8 +228,20 @@ export class KubernetesCommandLineToolsExecutor implements IKubernetesCommandLin
 
 	getServerUrl(): string {
 		Logger.debug(`${this.kubernetesCommandLineTool} - get server api url.`);
+		const baseUrl: URL = new URL(BASE_TEST_CONSTANTS.TS_SELENIUM_BASE_URL);
+		let apiHostname: string;
 
-		return BASE_TEST_CONSTANTS.TS_SELENIUM_BASE_URL.replace('devspaces.apps', 'api') + ':6443';
+		if (baseUrl.hostname.includes('devspaces.apps')) {
+			apiHostname = baseUrl.hostname.replace('devspaces.apps', 'api');
+		} else if (baseUrl.hostname.includes('console-openshift-console.apps')) {
+			apiHostname = baseUrl.hostname.replace('console-openshift-console.apps', 'api');
+		} else {
+			throw new Error(`Unexpected base URL hostname format: ${baseUrl.hostname}`);
+		}
+
+		const apiUrl: string = `https://${apiHostname}:6443`;
+		Logger.debug(`Generated API server URL: ${apiUrl}`);
+		return apiUrl;
 	}
 }
 
