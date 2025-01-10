@@ -185,7 +185,7 @@ export class Dashboard {
 		await this.driverHelper.waitDisappearance(Dashboard.USER_SETTINGS_DROPDOWN, timeout);
 	}
 
-	async clickContinueWithDefaultDevfileButton(timeout: number = TIMEOUT_CONSTANTS.TS_CLICK_DASHBOARD_ITEM_TIMEOUT): Promise<void> {
+	async clickContinueWithDefaultDevfileButton(timeout: number = TIMEOUT_CONSTANTS.TS_COMMON_DASHBOARD_WAIT_TIMEOUT): Promise<void> {
 		Logger.debug();
 
 		await this.driverHelper.waitAndClick(Dashboard.CONTINUE_WITH_DEFAULT_DEVFILE_BUTTON, timeout);
