@@ -39,6 +39,7 @@ export class Dashboard {
 		username: 'username'
 	};
 	private static readonly CONTINUE_WITH_DEFAULT_DEVFILE_BUTTON: By = By.xpath('//button[text()="Continue with default devfile"]');
+	private static readonly OPEN_EXISTING_WORKSPACE_LINK: By = By.xpath('//button[text()="Open the existing workspace"]');
 
 	constructor(
 		@inject(CLASSES.DriverHelper)
@@ -174,6 +175,12 @@ export class Dashboard {
 		Logger.debug();
 
 		await this.driverHelper.waitAndClick(Dashboard.CREATE_NEW_WORKSPACE_LINK, timeout);
+	}
+
+	async clickOpenExistingWorkspaceButton(timeout: number = TIMEOUT_CONSTANTS.TS_CLICK_DASHBOARD_ITEM_TIMEOUT): Promise<void> {
+		Logger.debug();
+
+		await this.driverHelper.waitAndClick(Dashboard.OPEN_EXISTING_WORKSPACE_LINK, timeout);
 	}
 
 	async logout(timeout: number = TIMEOUT_CONSTANTS.TS_COMMON_DASHBOARD_WAIT_TIMEOUT): Promise<void> {

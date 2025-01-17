@@ -88,6 +88,13 @@ suite(
 			});
 		}
 
+		if (BASE_TEST_CONSTANTS.IS_RESTART_EXISTING_WORKSPACE) {
+			test('Restart existing workspace', async function (): Promise<void> {
+				await dashboard.waitExistingWorkspaceFoundAlert();
+				await dashboard.clickOpenExistingWorkspaceButton();
+			});
+		}
+
 		test('Obtain workspace name from workspace loader page', async function (): Promise<void> {
 			await workspaceHandlingTests.obtainWorkspaceNameFromStartingPage();
 		});
@@ -209,14 +216,20 @@ suite(
 			await browserTabsUtil.closeAllTabsExceptCurrent();
 		});
 
-		suiteTeardown('Stop and delete the workspace by API', async function (): Promise<void> {
-			// to avoid a possible creating workspace which is not appeared on Dashboard yet. TODO: implement a better solution.
-			await driverHelper.wait(30000);
-			await testWorkspaceUtil.stopAndDeleteWorkspaceByName(WorkspaceHandlingTests.getWorkspaceName());
-		});
-
-		suiteTeardown('Unregister running workspace', function (): void {
-			registerRunningWorkspace('');
-		});
+		if (BASE_TEST_CONSTANTS.DELETE_WORKSPACE_ON_SUCCESSFUL_TEST) {
+			suiteTeardown('Stop and delete the workspace by API', async function (): Promise<void> {
+				// to avoid a possible creating workspace which is not appeared on Dashboard yet. TODO: implement a better solution.
+				await driverHelper.wait(30000);
+				await testWorkspaceUtil.stopAndDeleteWorkspaceByName(WorkspaceHandlingTests.getWorkspaceName());
+			});
+	
+			suiteTeardown('Unregister running workspace', function (): void {
+				registerRunningWorkspace('');
+			});
+		} else {
+			suiteTeardown('Registering the running workspace', function (): void {
+				registerRunningWorkspace(WorkspaceHandlingTests.getWorkspaceName());
+			});
+		}
 	}
 );
